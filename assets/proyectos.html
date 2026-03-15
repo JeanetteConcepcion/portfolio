@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos | Jeanette Concepción</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@300;400;500;600&family=Radley:ital@0;1&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           VARIABLES GLOBALES
+           ========================================= */
+        :root {
+            --bg-light: #ffffff;
+            --bg-neutral: #fcfcfd;
+            --text-dark: #1d1d1f;
+            --text-gray: #86868b;
+            --royal-blue: #12237F;
+            --royal-blue-light: #2A3C9F;
+            --border-color: #f5f5f7;
+            
+            --font-main: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Radley', serif;
+            --font-script: 'Caveat', cursive;
+            --font-nav: 'Outfit', sans-serif;
+            
+            --smooth-transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            --spring-transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- LOADING SCREEN --- */
+        #intro-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: var(--royal-blue); color: #fff;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 1000; transition: opacity 1s var(--ease-out-expo), transform 1s ease;
+        }
+
+        .intro-content {
+            text-align: center;
+            opacity: 0; transform: scale(0.95);
+            animation: introFadeScale 2s var(--ease-out-expo) forwards;
+        }
+
+        .intro-top-text { font-family: var(--font-script); font-size: 2rem; margin-bottom: -15px; color: #a1c9f2; transform: rotate(-5deg); display: inline-block; }
+        .intro-title { font-family: var(--font-serif); font-size: 5rem; letter-spacing: 2px; font-weight: 400; }
+        .intro-bottom-text { font-family: var(--font-script); font-size: 1.8rem; margin-top: 5px; color: #a1c9f2; }
+
+        @keyframes introFadeScale {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- PAGE TRANSITIONS --- */
+        body {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.65s var(--ease-out-expo), transform 0.65s var(--ease-out-expo);
+        }
+        body.page-entered { opacity: 1; transform: translateY(0); }
+        body.page-exiting { opacity: 0; transform: translateY(-12px); }
+
+        /* --- HEADER NAV --- */
+        header {
+            position: sticky; top: 0; left: 0; width: 100%; z-index: 900;
+            padding: 40px 0; transition: var(--smooth-transition);
+            will-change: padding, background;
+        }
+        .nav-container {
+            display: flex; justify-content: space-between; align-items: center;
+            width: 90%; max-width: 1100px; margin: 0 auto;
+            transition: var(--smooth-transition); padding: 12px 24px;
+            position: relative;
+        }
+        .logo-jc {
+            font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700;
+            color: var(--text-dark); text-decoration: none; transition: var(--smooth-transition);
+        }
+        .nav-links { display: flex; gap: 35px; align-items: center; }
+        .nav-links a {
+            font-family: var(--font-nav); text-decoration: none; font-size: 1.05rem; 
+            font-weight: 400; color: var(--text-dark); transition: 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--royal-blue); }
+        
+        .burger-menu {
+            display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001;
+        }
+        .burger-menu span {
+            width: 28px; height: 2px; background: var(--text-dark); transition: 0.4s ease;
+        }
+
+        header.scrolled { padding: 20px 0; }
+        header.scrolled .nav-container {
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,0,0,0.05); border-radius: 100px;
+            width: fit-content; min-width: 550px; padding: 10px 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        }
+        header.scrolled .logo-jc { font-size: 1.6rem; }
+
+        .top-blue-bar {
+            position: absolute; top: 0; left: 0; width: 100%; height: 6px;
+            background: var(--royal-blue); z-index: 999;
+        }
+
+        /* --- HERO PROYECTOS --- */
+        .projects-hero {
+            padding: 150px 5% 40px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .projects-title {
+            font-family: var(--font-serif);
+            font-size: clamp(4rem, 8vw, 5.5rem);
+            font-weight: 400;
+            color: var(--text-dark);
+            margin: 0;
+            letter-spacing: -1px;
+        }
+
+        /* --- SUBMENU CATEGORÍAS (Glass Pills) --- */
+        .category-submenu {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 80px;
+            padding: 0 5%;
+            position: relative;
+            z-index: 50;
+        }
+
+        .category-pill {
+            font-family: var(--font-nav);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-gray);
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            transition: var(--spring-transition);
+            white-space: nowrap;
+        }
+
+        .category-pill:hover {
+            color: var(--royal-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(18, 35, 127, 0.06);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .category-pill.active {
+            color: var(--royal-blue);
+            background: rgba(255, 255, 255, 1);
+            border-color: rgba(18, 35, 127, 0.1);
+            box-shadow: 0 8px 20px rgba(18, 35, 127, 0.08);
+        }
+
+        /* --- PROJECT SECTIONS --- */
+        .project-section {
+            padding: 80px 0 120px;
+            width: 100%;
+            border-top: 1px solid var(--border-color);
+            scroll-margin-top: 120px; /* Evita que el header tape el titulo al hacer scroll */
+        }
+
+        .project-section:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .section-header {
+            max-width: 1200px;
+            margin: 0 auto 50px;
+            padding: 0 5%;
+            text-align: left;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-main);
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 500;
+            color: var(--text-dark);
+            letter-spacing: -1px;
+        }
+        
+        .section-header h2 span.italic {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-weight: 400;
+            color: var(--royal-blue);
+        }
+
+        .project-presentation-container {
+            width: 100%;
+            max-width: 1400px; /* Limita un poco en pantallas ultra anchas para mantener estética */
+            margin: 0 auto;
+            padding: 0 5%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .project-presentation-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.06); /* Sutil sombra de presentación */
+            transition: var(--smooth-transition);
+        }
+
+        .project-presentation-img:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+
+        /* --- FINAL CTA --- */
+        .cta-section-wrapper {
+            padding: 80px 5% 140px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cta-section {
+            display: flex; justify-content: space-between; align-items: center; gap: 50px;
+            background: var(--bg-neutral); border-radius: 30px; padding: 80px 60px;
+            border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+        
+        .cta-text-content { text-align: left; max-width: 650px; }
+        .cta-text-content h2 {
+            font-family: var(--font-main); font-size: clamp(2rem, 3.5vw, 2.8rem); 
+            font-weight: 400; line-height: 1.25; margin-bottom: 0; letter-spacing: -1px;
+        }
+        .cta-text-content h2 span.italic { font-family: var(--font-serif); font-style: italic; color: var(--royal-blue); }
+        
+        .btn-solid-dark {
+            display: inline-block; background: var(--text-dark); color: var(--bg-light);
+            padding: 18px 45px; border-radius: 100px; text-decoration: none;
+            font-family: var(--font-nav); font-weight: 500; font-size: 1.05rem;
+            transition: var(--smooth-transition); white-space: nowrap;
+        }
+        .btn-solid-dark:hover {
+            transform: translateY(-4px); background: var(--royal-blue);
+            box-shadow: 0 15px 30px rgba(18, 35, 127, 0.2);
+        }
+
+        /* --- FOOTER --- */
+        footer { 
+            text-align: center; padding: 40px; border-top: 1px solid var(--border-color); 
+            font-size: 0.85rem; background: var(--bg-light); color: var(--text-gray); 
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .burger-menu { display: flex; }
+            header.scrolled .nav-container { min-width: auto; width: 90%; }
+            .nav-links {
+                position: absolute; top: 100%; left: 0; right: 0; width: 100%;
+                background: var(--bg-light); flex-direction: column;
+                padding: 30px 0; gap: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+                opacity: 0; visibility: hidden; transform: translateY(-10px);
+                transition: 0.4s var(--ease-out-expo); border-radius: 20px;
+                margin-top: 15px; border: 1px solid var(--border-color);
+            }
+            .nav-links.nav-active { opacity: 1; visibility: visible; transform: translateY(0); }
+            .burger-menu.toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .burger-menu.toggle span:nth-child(2) { opacity: 0; }
+            .burger-menu.toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+            .category-submenu {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 20px;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none; 
+            }
+            .category-submenu::-webkit-scrollbar { display: none; }
+            
+            .project-presentation-container { padding: 0 5%; }
+            .cta-section { flex-direction: column; text-align: center; padding: 60px 30px; gap: 40px; }
+            .cta-text-content { text-align: center; margin: 0 auto; }
+            .cta-text-content h2 br { display: none; }
+        }
+
+        /* Scroll Animations */
+        [data-reveal] { opacity: 0; transform: translateY(30px); transition: 1.2s var(--ease-out-expo); }
+        .revealed { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <div class="top-blue-bar"></div>
+
+    <div id="intro-screen">
+        <div class="intro-content">
+            <span class="intro-top-text">Diseño Digital</span>
+            <h1 class="intro-title">Proyectos</h1>
+            <span class="intro-bottom-text">Jeanette Concepción</span>
+        </div>
+    </div>
+
+    <header id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-jc">jc.</a>
+            
+            <div class="burger-menu" id="burger-menu">
+                <span></span><span></span><span></span>
+            </div>
+
+            <nav class="nav-links" id="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="about.html">Sobre mí</a>
+                <a href="proyectos.html" class="active" style="color: var(--royal-blue); font-weight: 600;">Proyectos</a>
+                <a href="contact.html">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="projects-hero" data-reveal>
+            <h1 class="projects-title">Proyectos</h1>
+        </section>
+
+        <nav class="category-submenu" data-reveal id="submenu">
+            <a href="#identidad" class="category-pill active">Identidad visual</a>
+            <a href="#web" class="category-pill">Diseño web</a>
+            <a href="#redes" class="category-pill">Redes sociales</a>
+        </nav>
+        
+        <section id="identidad" class="project-section" data-reveal>
+            <div class="section-header">
+                <h2>Identidad <span class="italic">Visual</span></h2>
+            </div>
+            
+            <div class="project-presentation-container">
+                <img src="images/proyectos/PASITOS FIRMES_proyecto.png" alt="Proyecto de Identidad Visual" class="project-presentation-img">
+            </div>
+        </section>
+
+        <section id="web" class="project-section" data-reveal>
+            <div class="section-header">
+                <h2>Diseño <span class="italic">Web</span></h2>
+            </div>
+            
+            <div class="project-presentation-container">
+                <img src="images/proyectos/emfravision_proyecto.png" alt="Proyecto de Diseño Web" class="project-presentation-img">
+            </div>
+        </section>
+
+        <section id="redes" class="project-section" data-reveal>
+            <div class="section-header">
+                <h2>Redes <span class="italic">Sociales</span></h2>
+            </div>
+            
+            <div class="project-presentation-container">
+                <img src="images/proyectos/Lunael_proyecto.png" alt="Proyecto de Redes Sociales" class="project-presentation-img">
+            </div>
+        </section>
+
+        <div class="cta-section-wrapper" data-reveal>
+            <section class="cta-section">
+                <div class="cta-text-content">
+                    <h2>Siempre estoy abierta a nuevas <span class="italic">oportunidades</span><br>y proyectos <span class="italic">creativos.</span></h2>
+                </div>
+                <div class="cta-button-container">
+                    <a href="contact.html" class="btn-solid-dark">Conectemos →</a>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer>
+        © 2026 Jeanette Concepción Guillén – Hecho con &lt;3
+    </footer>
+
+    <script>
+        // 1. Loading Intro Screen
+        window.addEventListener('load', () => {
+            const screen = document.getElementById('intro-screen');
+            setTimeout(() => {
+                screen.style.opacity = '0';
+                setTimeout(() => screen.remove(), 1000);
+            }, 2000); 
+        });
+
+        // 2. Navbar Scroll Logic
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 60) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // 3. Mobile Burger Menu
+        const burger = document.getElementById('burger-menu');
+        const navLinks = document.getElementById('nav-links');
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            burger.classList.toggle('toggle');
+        });
+
+        // 4. Reveal animations on scroll
+        const revealElements = document.querySelectorAll('[data-reveal]');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // 5. Submenu Active State Observer
+        const sections = document.querySelectorAll('.project-section');
+        const navPills = document.querySelectorAll('.category-pill');
+
+        const sectionObserverOptions = {
+            root: null,
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0.1
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navPills.forEach(pill => {
+                        pill.classList.remove('active');
+                        if (pill.getAttribute('href') === `#${id}`) {
+                            pill.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, sectionObserverOptions);
+
+        sections.forEach(section => sectionObserver.observe(section));
+
+        // 6. Page transitions
+        const PAGE_TRANSITION_MS = 650;
+
+        function isInternalNavigationLink(anchor) {
+            if (!anchor || !anchor.href) return false;
+            if (anchor.target === '_blank' || anchor.hasAttribute('download')) return false;
+            if (anchor.href.startsWith('mailto:') || anchor.href.startsWith('tel:')) return false;
+            
+            if (anchor.getAttribute('href').startsWith('#')) return false;
+
+            try {
+                const url = new URL(anchor.href, location.href);
+                if (url.origin !== location.origin) return false;
+                if (url.pathname === location.pathname && url.hash) return false;
+                return url.pathname !== location.pathname || url.search !== location.search;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function handleLinkClickForTransition(event) {
+            const anchor = event.target.closest('a');
+            if (!anchor || !isInternalNavigationLink(anchor)) return;
+
+            event.preventDefault();
+            document.body.classList.add('page-exiting');
+
+            setTimeout(() => {
+                window.location.href = anchor.href;
+            }, PAGE_TRANSITION_MS);
+        }
+
+        document.addEventListener('click', handleLinkClickForTransition, true);
+
+        window.addEventListener('load', () => {
+            requestAnimationFrame(() => document.body.classList.add('page-entered'));
+        });
+    </script>
+</body>
+</html>
