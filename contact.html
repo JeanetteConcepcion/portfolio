@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Jeanette</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;600;700&family=Radley:ital@0;1&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           GLOBAL VARIABLES
+           ========================================= */
+        :root {
+            /* Colors */
+            --bg-light: #ffffff;
+            --text-dark: #1d1d1f;
+            --text-gray: #86868b;
+            --royal-blue: #12237F;
+            --border-color: #f5f5f7;
+
+            /* Note Card Colors */
+            --note-bg: #F2F8FF;
+            --note-text: #7B9DC2;
+            --note-accent: #86B9FF;
+
+            /* Typography */
+            --font-main: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Radley', serif;
+            --font-script: 'Caveat', cursive; /* Fallback to Caveat if ViroScript is local */
+            --font-nav: 'Outfit', sans-serif;
+
+            /* Animations */
+            --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
+            --smooth-transition: all 0.6s var(--ease-apple);
+        }
+
+        /* =========================================
+           RESET & BASE
+           ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* =========================================
+           HEADER & NAVIGATION
+           ========================================= */
+        .top-blue-bar {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: var(--royal-blue);
+            z-index: 999;
+        }
+
+        header {
+            position: sticky;
+            top: 0; left: 0;
+            width: 100%;
+            z-index: 900;
+            padding: 40px 0;
+            transition: var(--smooth-transition);
+            will-change: padding, background;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            transition: var(--smooth-transition);
+            padding: 12px 24px;
+            position: relative;
+        }
+
+        .logo-jc {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: var(--smooth-transition);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-family: var(--font-nav);
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--royal-blue);
+        }
+
+        /* Scrolled Header State */
+        header.scrolled { padding: 20px 0; }
+        header.scrolled .nav-container {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 100px;
+            width: fit-content;
+            min-width: 550px;
+            padding: 10px 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        }
+        header.scrolled .logo-jc { font-size: 1.6rem; }
+
+        /* Burger Menu */
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .burger-menu span {
+            width: 28px; height: 2px;
+            background: var(--text-dark);
+            transition: 0.4s ease;
+        }
+
+        /* =========================================
+           SLANTED MARQUEE BANNER
+           ========================================= */
+        .marquee-wrap {
+            background: var(--royal-blue);
+            padding: 16px 0;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            white-space: nowrap;
+            margin-top: 160px;
+            transform: rotate(-2deg) scale(1.05);
+            box-shadow: 0 10px 20px rgba(18, 35, 127, 0.1);
+            z-index: 10;
+        }
+
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marqueeLoop 25s linear infinite;
+        }
+
+        .marquee-group {
+            display: flex;
+            align-items: center;
+            flex: 0 0 auto;
+        }
+
+        .marquee-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.5rem;
+            color: white;
+            padding: 0 40px;
+        }
+
+        @keyframes marqueeLoop {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* =========================================
+           MAIN CONTACT LAYOUT
+           ========================================= */
+        .contact-wrapper {
+            flex-grow: 1;
+            padding: 100px 5% 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* =========================================
+           LEFT COLUMN: VERTICAL GREETING STACK
+           ========================================= */
+        .contact-left {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .greeting-wrapper {
+            perspective: 1000px;
+        }
+
+        /* The Fix: Vertical Stack */
+        .greeting-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            /* Adjust line-height tightly to match the design */
+            line-height: 0.95;
+            gap: 10px; 
+        }
+
+        .greeting-word {
+            display: inline-block;
+            transition: transform 0.8s var(--ease-apple), opacity 0.8s var(--ease-apple), filter 0.8s var(--ease-apple);
+            transform-origin: center left;
+            will-change: transform, opacity, filter;
+        }
+
+        /* Premium Apple-style morph animation classes */
+        .greeting-word.morphing {
+            opacity: 0;
+            filter: blur(6px);
+            transform: translateY(12px) scale(0.98);
+        }
+
+        /* Typography Styling for the Stack */
+        .g-hand { 
+            font-family: var(--font-script); 
+            font-size: clamp(4.5rem, 8vw, 6.5rem); 
+            color: var(--text-dark); 
+            line-height: 0.8;
+            margin-bottom: 10px;
+        }
+        
+        .g-serif { 
+            font-family: var(--font-serif); 
+            font-size: clamp(4rem, 7.5vw, 6rem); 
+            font-style: italic; 
+            color: var(--text-dark);
+            position: relative;
+        }
+        
+        /* The Blue Underline for the middle word */
+        .g-serif::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background-color: var(--royal-blue);
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+        .g-sans { 
+            font-family: var(--font-main); 
+            font-size: clamp(3.8rem, 7vw, 5.5rem); 
+            font-weight: 700; 
+            letter-spacing: -2px; 
+            color: var(--text-dark); 
+        }
+
+        /* =========================================
+           ACTION BUTTONS
+           ========================================= */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 340px;
+        }
+
+        .btn-outline {
+            display: inline-block;
+            text-align: center;
+            padding: 18px 32px;
+            border: 1px solid var(--text-dark);
+            border-radius: 100px;
+            background: transparent;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-family: var(--font-main);
+            font-weight: 500;
+            transition: all 0.4s var(--ease-apple);
+        }
+
+        .btn-outline:hover {
+            background: var(--text-dark);
+            color: var(--bg-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+
+        /* =========================================
+           RIGHT COLUMN: NOTE CARD
+           ========================================= */
+        .note-card {
+            background-color: var(--note-bg);
+            border-radius: 24px;
+            padding: 48px 40px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(123, 157, 194, 0.12);
+            transition: transform 0.6s var(--ease-apple);
+        }
+
+        .note-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .note-title {
+            font-family: var(--font-nav);
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--note-accent);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .note-title::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 24px;
+            background-color: var(--note-accent);
+            border-radius: 4px;
+        }
+
+        .note-icons {
+            display: flex;
+            gap: 16px;
+            color: var(--note-accent);
+        }
+
+        .note-icons svg {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.5;
+            transition: opacity 0.3s;
+        }
+        .note-icons svg:hover { opacity: 0.7; }
+
+        .note-body {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--note-text);
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        .note-signature {
+            font-family: var(--font-script);
+            font-size: 2.2rem;
+            color: var(--note-accent);
+            text-align: right;
+            transform: rotate(-4deg);
+            opacity: 0.9;
+        }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            font-family: var(--font-main);
+            
+        }
+
+        /* =========================================
+           RESPONSIVE DESIGN (MOBILE)
+           ========================================= */
+        @media (max-width: 900px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 70px;
+            }
+
+            .marquee-wrap {
+                margin-top: 80px;
+                transform: rotate(-3deg) scale(1.05);
+            }
+
+            .greeting-stack {
+                align-items: center;
+                text-align: center;
+            }
+            
+            .g-serif::after {
+                height: 5px;
+                bottom: 4px;
+            }
+
+            .action-buttons {
+                margin: 0 auto;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .note-card {
+                padding: 35px 25px;
+            }
+            
+            .contact-wrapper {
+                padding: 60px 5% 60px;
+            }
+
+            /* Mobile Nav */
+            .burger-menu { display: flex; }
+            header.scrolled .nav-container { min-width: auto; width: 90%; }
+            
+            .nav-links {
+                position: absolute; top: 100%; left: 0; right: 0; width: 100%;
+                background: var(--bg-light); flex-direction: column;
+                padding: 30px 0; gap: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+                opacity: 0; visibility: hidden; transform: translateY(-10px);
+                transition: 0.4s var(--ease-apple); border-radius: 20px;
+                margin-top: 15px; border: 1px solid var(--border-color);
+            }
+            .nav-links.nav-active { opacity: 1; visibility: visible; transform: translateY(0); }
+
+            .burger-menu.toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .burger-menu.toggle span:nth-child(2) { opacity: 0; }
+            .burger-menu.toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        }
+
+        /* --- PAGE TRANSITIONS --- */
+        body {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.65s var(--ease-out-expo), transform 0.65s var(--ease-out-expo);
+        }
+
+        body.page-entered {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        body.page-exiting {
+            opacity: 0;
+            transform: translateY(-12px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-blue-bar"></div>
+
+    <header id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-jc">jc.</a>
+            
+            <div class="burger-menu" id="burger-menu">
+                <span></span><span></span><span></span>
+            </div>
+
+            <nav class="nav-links" id="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="about.html">Sobre mí</a>
+            
+                <a href="proyectos.html">Proyectos</a>
+                <a href="contact.html">Contactos</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="marquee-wrap">
+        <div class="marquee-track">
+            <div class="marquee-group">
+                <span class="marquee-text">Conectemos</span>
+                <span class="marquee-text">Conectemos</span>
+                <span class="marquee-text">Conectemos</span>
+                <span class="marquee-text">Conectemos</span>
+                <span class="marquee-text">Conectemos</span>
+            </div>
+            <div class="marquee-group">
+                <span class="marquee-text">Conectemos</span>
+                <span class="marquee-text">Conectemos</span>
+                <span class="marquee-text">Conectemos</span>
+                <span class="marquee-text">Conectemos</span>
+                <span class="marquee-text">Conectemos</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="contact-wrapper">
+        <div class="contact-grid">
+            
+            <div class="contact-left">
+                <div class="greeting-wrapper">
+                    <div class="greeting-stack" id="greeting-box">
+                        <span class="greeting-word g-hand" id="w1">Thank you,</span>
+                        <span class="greeting-word g-serif" id="w2">Gracias,</span>
+                        <span class="greeting-word g-sans" id="w3">Obrigado,</span>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="mailto:jeanetteconcepcion141003@gmail.com" target="_blank" rel="noopener noreferrer" class="btn-outline">
+                        Envíame un correo
+                    </a>
+                    <a href="https://calendar.app.google/oV8Tb4hBAU56D8vN6" target="_blank" rel="noopener noreferrer" class="btn-outline">
+                        Agendar una reunión
+                    </a>
+                </div>
+            </div>
+
+            <div class="contact-right">
+                <div class="note-card">
+                    <div class="note-header">
+                        <div class="note-title">Nota</div>
+                        <div class="note-icons">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/>
+                            </svg>
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="5" cy="12" r="2"/>
+                                <circle cx="12" cy="12" r="2"/>
+                                <circle cx="19" cy="12" r="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <p class="note-body">
+                        Aunque estoy al inicio de mi camino profesional, tengo un gran compromiso por seguir aprendiendo, mejorar constantemente mis habilidades y aportar nuevas perspectivas a cada proyecto. Confío en que con dedicación, curiosidad y trabajo continuo, puedo seguir creciendo y aportar valor a cada oportunidad que se presente.
+                    </p>
+                    
+                    <div class="note-signature">
+                        Jeanette Concepción
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        © 2026 Jeanette Concepción Guillén – Hecho con &lt;3
+    </footer>
+
+    <script>
+        // Navbar Scroll Logic (Shrink + Blur)
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Burger Toggle
+        const burger = document.getElementById('burger-menu');
+        const navLinks = document.getElementById('nav-links');
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            burger.classList.toggle('toggle');
+        });
+
+        // Premium Vertical Morph Animation for Greeting Words
+        const wordSets = [
+            ["Thank you,", "Gracias,", "Obrigado,"],
+            ["Thanks,", "Merci,", "Grazie,"],
+            ["Thank you,", "Danke,", "Gracias,"]
+        ];
+
+        const w1 = document.getElementById('w1');
+        const w2 = document.getElementById('w2');
+        const w3 = document.getElementById('w3');
+        const greetingWords = [w1, w2, w3];
+        
+        let currentSetIndex = 0;
+        const morphDuration = 800; // Matches CSS transition duration
+        const staggerDelay = 120;  // Creates a cascading effect
+
+        function morphToNextSet() {
+            currentSetIndex = (currentSetIndex + 1) % wordSets.length;
+            const nextWords = wordSets[currentSetIndex];
+
+            greetingWords.forEach((el, index) => {
+                setTimeout(() => {
+                    // Trigger exit animation
+                    el.classList.add('morphing');
+
+                    // Swap text midway through the animation
+                    setTimeout(() => {
+                        el.textContent = nextWords[index];
+                        // Trigger entrance animation
+                        el.classList.remove('morphing');
+                    }, morphDuration * 0.5); 
+                }, index * staggerDelay);
+            });
+        }
+
+        // Change languages every 3.5 seconds for a more relaxed, premium pace
+        setInterval(morphToNextSet, 3500);
+
+        // --- Page transitions (fade + translate) ---
+        const PAGE_TRANSITION_MS = 650;
+
+        function isInternalNavigationLink(anchor) {
+            if (!anchor || !anchor.href) return false;
+            if (anchor.target === '_blank' || anchor.hasAttribute('download')) return false;
+            if (anchor.href.startsWith('mailto:') || anchor.href.startsWith('tel:')) return false;
+
+            try {
+                const url = new URL(anchor.href, location.href);
+                if (url.origin !== location.origin) return false;
+                // allow hash links on same page without transition
+                if (url.pathname === location.pathname && url.hash) return false;
+                return url.pathname !== location.pathname || url.search !== location.search;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function handleLinkClickForTransition(event) {
+            const anchor = event.target.closest('a');
+            if (!anchor || !isInternalNavigationLink(anchor)) return;
+
+            event.preventDefault();
+            document.body.classList.add('page-exiting');
+
+            setTimeout(() => {
+                window.location.href = anchor.href;
+            }, PAGE_TRANSITION_MS);
+        }
+
+        document.addEventListener('click', handleLinkClickForTransition, true);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            requestAnimationFrame(() => document.body.classList.add('page-entered'));
+        });
+    </script>
+</body>
+</html>

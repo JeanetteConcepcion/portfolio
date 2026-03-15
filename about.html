@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Mí | Jeanette Concepción</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@300;400;500;600&family=Radley:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            /* Colores Base */
+            --bg-light: #ffffff;
+            --bg-neutral: #f8f9fb; /* Gris ultra claro y elegante */
+            --text-dark: #1a1a1a;
+            --text-gray: #6e6e73;
+            --royal-blue: #12237F;
+            --royal-blue-light: #2A3C9F;
+            --border-color: #eaeaea;
+
+            /* Tipografías */
+            --font-main: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Radley', serif;
+            --font-script: 'Caveat', cursive;
+            --font-nav: 'Outfit', sans-serif;
+
+            /* Físicas de Animación Premium (Apple/Linear style) */
+            --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --smooth-transition: all 0.6s var(--ease-out-expo);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* --- PAGE TRANSITIONS --- */
+        body {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+        }
+        body.page-entered {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        body.page-exiting {
+            opacity: 0;
+            transform: translateY(-12px);
+        }
+
+        /* --- HEADER / NAV --- */
+        header {
+            position: sticky; top: 0; left: 0; width: 100%; z-index: 900;
+            padding: 40px 0; transition: var(--smooth-transition);
+            will-change: padding, background;
+        }
+        .nav-container {
+            display: flex; justify-content: space-between; align-items: center;
+            width: 90%; max-width: 1100px; margin: 0 auto;
+            transition: var(--smooth-transition); padding: 12px 24px;
+            position: relative;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+        .logo-jc {
+            font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700;
+            color: var(--text-dark); text-decoration: none; transition: var(--smooth-transition);
+        }
+        .nav-links { display: flex; gap: 35px; align-items: center; }
+        .nav-links a {
+            font-family: var(--font-nav); text-decoration: none; font-size: 1.05rem; 
+            font-weight: 400; color: var(--text-dark); transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--royal-blue); }
+
+        .burger-menu {
+            display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001;
+        }
+        .burger-menu span {
+            width: 28px; height: 2px; background: var(--text-dark); transition: 0.4s ease;
+        }
+
+        /* Estado Scrolled (Cápsula Flotante) */
+        header.scrolled { padding: 20px 0; }
+        header.scrolled .nav-container {
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,0,0,0.05); border-radius: 100px;
+            width: fit-content; min-width: 550px; padding: 10px 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        }
+        header.scrolled .logo-jc { font-size: 1.6rem; }
+
+        .top-blue-bar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 5px;
+            background: var(--royal-blue); z-index: 1000;
+        }
+
+        /* --- LAYOUT & SPACING --- */
+        section {
+            padding: 90px 0;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: var(--royal-blue);
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        /* --- HERO & INTRO CARD (GLASSMORPHISM & 3D EFFECT) --- */
+        .hero-section {
+            padding-top: 180px; 
+            padding-bottom: 60px;
+            /* Gradiente muy sutil para que el glassmorphism resalte */
+            background: radial-gradient(circle at 80% 20%, rgba(18, 35, 127, 0.02) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(18, 35, 127, 0.02) 0%, transparent 50%);
+        }
+
+        .intro-card {
+            background: rgba(248, 249, 251, 0.6);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 24px 48px rgba(0,0,0,0.03), inset 0 1px 0 rgba(255, 255, 255, 1);
+            border-radius: 36px;
+            padding: 70px;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            margin-top: 40px; /* Espacio para que la imagen salga por arriba */
+        }
+
+        .intro-text {
+            flex: 1;
+            z-index: 2;
+        }
+
+        .intro-text h1 {
+            font-family: var(--font-serif);
+            font-size: 4.5rem;
+            line-height: 1.1;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+
+        .hello-script {
+            font-family: var(--font-script);
+            color: var(--royal-blue);
+            font-size: 1.3em;
+            transform: rotate(-5deg);
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        .intro-text p {
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            color: var(--text-gray);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+        .intro-text p strong {
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 1.3rem;
+            display: block;
+            margin-bottom: 25px;
+        }
+
+        /* EFECTO 3D IMAGEN */
+        .profile-img-container {
+            flex: 0 0 40%;
+            position: relative;
+            z-index: 10;
+            /* La magia del 3D: Subimos la imagen y compensamos el margen inferior */
+            transform: translateY(-60px);
+            margin-bottom: -60px;
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12); /* Sombra más pronunciada para vender el efecto 3D */
+            object-fit: cover;
+        }
+
+        /* Botón Hero Modificado */
+        .btn-minimal {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 16px 36px; border: 1px solid var(--border-color);
+            background: var(--bg-light); color: var(--text-dark); text-decoration: none;
+            border-radius: 100px; font-family: var(--font-nav); font-weight: 500; font-size: 1.05rem;
+            transition: var(--smooth-transition); margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+        .btn-minimal:hover {
+            background: var(--royal-blue); color: var(--bg-light); border-color: var(--royal-blue);
+            transform: translateY(-4px); box-shadow: 0 12px 24px rgba(18, 35, 127, 0.15);
+        }
+
+        /* --- MARQUEE OPTIMIZADO (Smooth Loop sin saltos) --- */
+        .marquee-wrap {
+            background: var(--royal-blue);
+            padding: 20px 0;
+            overflow: hidden;
+            display: flex;
+            white-space: nowrap;
+            margin: 20px 0 60px 0;
+        }
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marqueeLoop 25s linear infinite;
+        }
+        .marquee-group {
+            display: flex;
+            align-items: center;
+        }
+        .marquee-text {
+            font-family: var(--font-nav); font-weight: 400; font-size: 1rem;
+            color: #ffffff; padding: 0 20px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.9;
+        }
+        .marquee-bullet { color: rgba(255,255,255,0.3); padding: 0 10px; font-size: 0.8rem;}
+        
+        @keyframes marqueeLoop {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } 
+        }
+
+        /* --- SKILLS GRID --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .skill-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            padding: 40px 30px;
+            border-radius: var(--card-radius);
+            text-align: center;
+            transition: var(--smooth-transition);
+        }
+
+        .skill-card:hover {
+            border-color: var(--royal-blue);
+            box-shadow: 0 20px 40px rgba(18, 35, 127, 0.06);
+            transform: translateY(-6px);
+        }
+
+        .skill-card h3 {
+            font-family: var(--font-nav); font-weight: 600; font-size: 1.05rem;
+            color: var(--text-dark); margin-bottom: 25px;
+        }
+
+        .icon-group { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
+        .icon-group img {
+            width: 36px; height: 36px; filter: grayscale(1) opacity(0.6);
+            transition: var(--smooth-transition);
+        }
+        .skill-card:hover .icon-group img {
+            filter: grayscale(0) opacity(1); transform: scale(1.1);
+        }
+
+        /* --- INFO COLUMNS --- */
+        .info-columns {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px;
+            padding-top: 40px; padding-bottom: 40px;
+        }
+
+        .info-col h3 {
+            font-family: var(--font-serif); font-size: 1.8rem; color: var(--text-dark);
+            margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color);
+        }
+
+        .info-item { margin-bottom: 25px; }
+        .info-item h4 { font-family: var(--font-nav); font-weight: 600; font-size: 1.1rem; color: var(--text-dark); margin-bottom: 5px; }
+        .info-item p { font-size: 0.95rem; color: var(--text-gray); }
+
+        .lang-bar { height: 3px; background: #eee; margin-top: 10px; border-radius: 3px; position: relative; overflow: hidden; }
+        .lang-progress { position: absolute; height: 100%; background: var(--royal-blue); width: 0; transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1); }
+
+        /* --- EXPERIENCE CARDS --- */
+        .experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+
+        .exp-card {
+            background: var(--bg-neutral);
+            border: 1px solid var(--border-color);
+            padding: 50px 40px; border-radius: var(--card-radius);
+            transition: var(--smooth-transition);
+        }
+        .exp-card:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.04); border-color: transparent; background: var(--bg-light); }
+
+        .exp-card .date {
+            font-family: var(--font-nav); color: var(--royal-blue); font-weight: 600;
+            font-size: 0.9rem; margin-bottom: 15px; display: block; letter-spacing: 1px;
+        }
+        .exp-card h4 { font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 5px; }
+        .exp-card p strong { font-family: var(--font-nav); font-size: 1.05rem; color: var(--text-gray); font-weight: 400; }
+
+        .exp-card ul { margin-top: 25px; list-style: none; font-size: 0.95rem; color: var(--text-gray); }
+        .exp-card li { position: relative; padding-left: 20px; margin-bottom: 12px; line-height: 1.6; }
+        .exp-card li::before { content: "—"; position: absolute; left: 0; color: var(--royal-blue); font-weight: bold; }
+
+        /* --- CTA SECTION (LINEAR / APPLE STYLE) --- */
+        .cta-wrapper {
+            padding: 40px 24px 100px;
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        .cta-section {
+            background: var(--bg-neutral);
+            border: 1px solid var(--border-color);
+            border-radius: 32px;
+            padding: 80px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+
+        .cta-text-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .cta-text-content h2 {
+            font-family: var(--font-main);
+            font-size: clamp(2.2rem, 3.5vw, 3rem); 
+            font-weight: 400; 
+            line-height: 1.15;
+            color: var(--text-dark);
+            margin: 0; 
+            letter-spacing: -1px;
+        }
+        .cta-text-content h2 span.serif-italic { 
+            font-family: var(--font-serif); 
+            font-style: italic; 
+            font-weight: 400; 
+            color: var(--royal-blue);
+        }
+
+        .cta-button-container {
+            margin-left: 40px;
+        }
+
+        .btn-solid-dark {
+            display: inline-block;
+            background: var(--text-dark);
+            color: var(--bg-light);
+            padding: 18px 45px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-family: var(--font-nav);
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: var(--smooth-transition);
+            white-space: nowrap;
+        }
+        .btn-solid-dark:hover {
+            transform: translateY(-4px);
+            background: var(--royal-blue);
+            box-shadow: 0 15px 30px rgba(18, 35, 127, 0.2);
+        }
+
+        footer {
+            text-align: center; padding: 40px; border-top: 1px solid var(--border-color);
+            font-size: 0.9rem; font-family: var(--font-nav); color: var(--text-gray);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
+            .intro-card { flex-direction: column; padding: 50px 30px; text-align: center; gap: 30px; margin-top: 20px;}
+            .intro-text h1 { font-size: 3.5rem; }
+            
+            .profile-img-container { margin: 0; width: 85%; max-width: 400px; transform: translateY(0); }
+            
+            .info-columns { grid-template-columns: 1fr; gap: 40px; }
+            .experience-grid { grid-template-columns: 1fr; }
+            
+            .cta-section { flex-direction: column; text-align: center; padding: 60px 30px; gap: 40px; }
+            .cta-text-content { text-align: center; }
+            .cta-button-container { margin-left: 0; }
+
+            /* Mobile Nav Logic (Del Home) */
+            .burger-menu { display: flex; }
+            header.scrolled .nav-container { min-width: auto; width: 90%; border-radius: 100px; padding: 10px 24px; }
+            .nav-links {
+                position: absolute; top: 100%; left: 0; right: 0; width: 100%;
+                background: var(--bg-light); flex-direction: column;
+                padding: 30px 0; gap: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+                opacity: 0; visibility: hidden; transform: translateY(-10px);
+                transition: 0.4s var(--ease-out-expo); border-radius: 20px;
+                margin-top: 15px; border: 1px solid var(--border-color);
+            }
+            .nav-links.nav-active { opacity: 1; visibility: visible; transform: translateY(0); }
+            .burger-menu.toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .burger-menu.toggle span:nth-child(2) { opacity: 0; }
+            .burger-menu.toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        }
+
+        /* Scroll Animations */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1s var(--ease-out-expo);
+        }
+        .revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-blue-bar"></div>
+
+    <header id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-jc">jc.</a>
+
+            <div class="burger-menu" id="burger-menu">
+                <span></span><span></span><span></span>
+            </div>
+
+            <nav class="nav-links" id="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="about.html" style="color: var(--royal-blue); font-weight: 600;">Sobre mí</a>
+                <a href="proyectos.html">Proyectos</a>
+                <a href="contact.html">Contactos</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section" data-reveal>
+            <div class="intro-card">
+                <div class="intro-text">
+                    <h1>¡Hola! <span class="hello-script">hello!</span></h1>
+                    <p><strong>Qué bueno tenerte por aquí.</strong></p>
+                    <p>Mi nombre es Jeanette Concepción, una comunicadora digital dominicana apasionada por el diseño y por la forma en que lo visual puede contar historias y conectar con las personas.</p>
+                    <p>Actualmente estoy en término de la Licenciatura en Comunicación Digital y me enfoco en branding, diseño web y UX/UI.</p>
+
+                    <a href="CV Jeanette Concepcion Guillen.pdf" class="btn-minimal" download>
+                        <i data-lucide="download" style="width: 18px;"></i> Descargar CV
+                    </a>
+                </div>
+
+                <div class="profile-img-container">
+                    <img src="images/jeanette-profile.png" alt="Jeanette Concepción">
+                </div>
+            </div>
+        </section>
+
+        <div class="marquee-wrap" data-reveal>
+            <div class="marquee-track">
+                <div class="marquee-group">
+                    <span class="marquee-text">sobre mí</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">about me</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">sobre mí</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">about me</span><span class="marquee-bullet">•</span>
+                </div>
+                <div class="marquee-group">
+                    <span class="marquee-text">sobre mí</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">about me</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">sobre mí</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">about me</span><span class="marquee-bullet">•</span>
+                </div>
+            </div>
+        </div>
+
+        <section data-reveal>
+    <h2 class="section-title">Destrezas</h2>
+    <div class="skills-grid">
+        <div class="skill-card" data-reveal>
+            <h3>Edición de Video y Sonido</h3>
+            <div class="icon-group">
+                <img src="images/skills/Adobe_Premiere_Pro_CC_icon.svg.png" alt="Premiere">
+                <img src="images/skills/DaVinci_Resolve_Studio.png" alt="DaVinci">
+            </div>
+        </div>
+        <div class="skill-card" data-reveal>
+            <h3>Diseño Gráfico y Visual</h3>
+            <div class="icon-group">
+                <img src="images/skills/Adobe_Illustrator_CC_icon.svg.png" alt="AI">
+                <img src="https://cdn.worldvectorlogo.com/logos/adobe-photoshop-2.svg" alt="PS">
+                <img src="images/skills/canva.png" alt="Canva">
+            </div>
+        </div>
+        <div class="skill-card" data-reveal>
+            <h3>Marketing Digital</h3>
+            <div class="icon-group">
+                <img src="https://cdn.worldvectorlogo.com/logos/google-analytics-4.svg" alt="GA4">
+                <img src="images/skills/Meta-Business-Suite.png" alt="Meta">
+            </div>
+        </div>
+        <div class="skill-card" data-reveal>
+            <h3>Diseño UX/UI & Web</h3>
+            <div class="icon-group">
+                <img src="images/skills/figma.png" alt="Figma">
+                <img src="https://cdn.worldvectorlogo.com/logos/wordpress-icon-1.svg" alt="WP">
+            </div>
+        </div>
+    </div>
+</section>
+
+        <section class="info-columns" data-reveal>
+            <div class="info-col">
+                <h3>Educación</h3>
+                <div class="info-item">
+                    <h4>Lic. Comunicación Digital</h4>
+                    <p>UNAPEC — 2022 / Presente</p>
+                </div>
+            </div>
+            <div class="info-col">
+                <h3>Extras</h3>
+                <div class="info-item">
+                    <h4>Community Manager & Marketing</h4>
+                    <p>INFOTEP — 2023</p>
+                </div>
+            </div>
+            <div class="info-col">
+                <h3>Idiomas</h3>
+                <div class="info-item">
+                    <p>Español (Nativo)</p>
+                    <div class="lang-bar"><div class="lang-progress" data-width="100%"></div></div>
+                </div>
+                <div class="info-item">
+                    <p>Inglés (B1-B2)</p>
+                    <div class="lang-bar"><div class="lang-progress" data-width="75%"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section data-reveal>
+            <h2 class="section-title">Experiencia</h2>
+            <div class="experience-grid">
+                <div class="exp-card" data-reveal>
+                    <span class="date">2025</span>
+                    <h4>Pasante Comunicación Interna</h4>
+                    <p><strong>Claro Dominicana</strong></p>
+                    <ul>
+                        <li>Apoyo en la creación y edición de contenido audiovisual.</li>
+                        <li>Planificación y ejecución de campañas internas.</li>
+                        <li>Alineación de mensajes con la identidad corporativa.</li>
+                    </ul>
+                </div>
+                <div class="exp-card" data-reveal>
+                    <span class="date">2024</span>
+                    <h4>Retail Associate</h4>
+                    <p><strong>Sunsations — Maryland, USA</strong></p>
+                    <ul>
+                        <li>Programa Work and Travel en un entorno multicultural.</li>
+                        <li>Atención al cliente y manejo ágil de inventario.</li>
+                        <li>Desarrollo de habilidades de comunicación bilingüe.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="cta-wrapper" data-reveal>
+            <section class="cta-section">
+                <div class="cta-text-content">
+                    <h2>Siempre abierta a nuevas <span class="serif-italic">oportunidades</span> <br> y proyectos <span class="serif-italic">creativos.</span></h2>
+                </div>
+                <div class="cta-button-container">
+                    <a href="contact.html" class="btn-cta-dark">Conectemos →</a>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer>
+        © 2026 Jeanette Concepción Guillén · Diseñado con propósito
+    </footer>
+
+    <script>
+        // Inicializar Iconos
+        lucide.createIcons();
+
+        // Comportamiento del Navbar al hacer Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Menú Hamburguesa Móvil
+        const burger = document.getElementById('burger-menu');
+        const navLinks = document.getElementById('nav-links');
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            burger.classList.toggle('toggle');
+        });
+
+        // Animaciones Reveladoras suaves al hacer Scroll
+        const revealElements = document.querySelectorAll('[data-reveal]');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+
+                    // Disparar las barras de progreso dentro del elemento
+                    const bars = entry.target.querySelectorAll('.lang-progress');
+                    bars.forEach(bar => {
+                        setTimeout(() => {
+                            bar.style.width = bar.getAttribute('data-width');
+                        }, 300);
+                    });
+                }
+            });
+        }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Transiciones suaves entre páginas
+        const PAGE_TRANSITION_MS = 650;
+
+        function isInternalNavigationLink(anchor) {
+            if (!anchor || !anchor.href) return false;
+            if (anchor.target === '_blank' || anchor.hasAttribute('download')) return false;
+            if (anchor.href.startsWith('mailto:') || anchor.href.startsWith('tel:')) return false;
+
+            try {
+                const url = new URL(anchor.href, location.href);
+                if (url.origin !== location.origin) return false;
+                if (url.pathname === location.pathname && url.hash) return false;
+                return url.pathname !== location.pathname || url.search !== location.search;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function handleLinkClickForTransition(event) {
+            const anchor = event.target.closest('a');
+            if (!anchor || !isInternalNavigationLink(anchor)) return;
+
+            event.preventDefault();
+            document.body.classList.add('page-exiting');
+
+            setTimeout(() => {
+                window.location.href = anchor.href;
+            }, PAGE_TRANSITION_MS);
+        }
+
+        document.addEventListener('click', handleLinkClickForTransition, true);
+
+        window.addEventListener('load', () => {
+            requestAnimationFrame(() => document.body.classList.add('page-entered'));
+        });
+    </script>
+</body>
+</html>
