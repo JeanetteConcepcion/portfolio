@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeanette | Portafolio Diseño Digital</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@300;400;500;600&family=Radley:ital@0;1&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-light: #ffffff;
+            --bg-neutral: #fcfcfd;
+            --text-dark: #1d1d1f;
+            --text-gray: #86868b;
+            --royal-blue: #12237F;
+            --royal-blue-light: #2A3C9F;
+            --folder-back: #4557B5;
+            --border-color: #f5f5f7;
+            
+            /* Tipografías */
+            --font-main: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Radley', serif;
+            --font-script: 'Caveat', cursive;
+            --font-nav: 'Outfit', sans-serif;
+            
+            /* Easing profesional estilo Webflow/Awwwards */
+            --smooth-transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            --spring-transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- 1. LOADING SCREEN --- */
+        #intro-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: var(--royal-blue); color: #fff;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 1000; transition: opacity 1s var(--ease-out-expo), transform 1s ease;
+        }
+
+        .intro-content {
+            text-align: center;
+            opacity: 0; transform: scale(0.95);
+            animation: introFadeScale 2s var(--ease-out-expo) forwards;
+        }
+
+        .intro-top-text { font-family: var(--font-script); font-size: 2rem; margin-bottom: -15px; color: #a1c9f2; transform: rotate(-5deg); display: inline-block; }
+        .intro-title { font-family: var(--font-serif); font-size: 5rem; letter-spacing: 2px; font-weight: 400; }
+        .intro-bottom-text { font-family: var(--font-script); font-size: 1.8rem; margin-top: 5px; color: #a1c9f2; }
+
+        @keyframes introFadeScale {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- 2. HEADER NAV --- */
+        header {
+            position: sticky; top: 0; left: 0; width: 100%; z-index: 900;
+            padding: 40px 0; transition: var(--smooth-transition);
+            will-change: padding, background;
+        }
+        .nav-container {
+            display: flex; justify-content: space-between; align-items: center;
+            width: 90%; max-width: 1100px; margin: 0 auto;
+            transition: var(--smooth-transition); padding: 12px 24px;
+            position: relative;
+        }
+        .logo-jc {
+            font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700;
+            color: var(--text-dark); text-decoration: none; transition: var(--smooth-transition);
+        }
+        .nav-links { display: flex; gap: 35px; align-items: center; }
+        .nav-links a {
+            font-family: var(--font-nav); text-decoration: none; font-size: 1.05rem; 
+            font-weight: 400; color: var(--text-dark); transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--royal-blue); }
+        
+        /* Burger Menu (Mobile) */
+        .burger-menu {
+            display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001;
+        }
+        .burger-menu span {
+            width: 28px; height: 2px; background: var(--text-dark); transition: 0.4s ease;
+        }
+
+        /* Estado Scrolled */
+        header.scrolled { padding: 20px 0; }
+        header.scrolled .nav-container {
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,0,0,0.05); border-radius: 100px;
+            width: fit-content; min-width: 550px; padding: 10px 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        }
+        header.scrolled .logo-jc { font-size: 1.6rem; }
+
+        /* --- 3. HERO SECTION --- */
+        .top-blue-bar {
+            position: absolute; top: 0; left: 0; width: 100%; height: 6px;
+            background: var(--royal-blue); z-index: 999;
+        }
+
+        .hero-section {
+            min-height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 30px 5% 100px; background: var(--bg-light);
+            position: relative;
+        }
+        
+        .hero-label {
+            font-family: var(--font-serif); font-style: italic; font-size: 1.15rem;
+            color: var(--text-gray); margin-bottom: 35px; font-weight: 400; opacity: 0.8;
+        }
+
+        /* Morphing Greeting Animation */
+        .greeting-wrap {
+            height: 100px; display: flex; align-items: center; justify-content: center;
+            margin-bottom: 30px; overflow: hidden; perspective: 1000px;
+        }
+
+        .greeting-words {
+            display: flex; gap: 15px; align-items: baseline;
+        }
+
+        .greeting-word {
+            transition: transform 0.8s var(--ease-out-expo), opacity 0.8s ease, filter 0.8s ease;
+        }
+
+        .greeting-word.morphing {
+            opacity: 0;
+            filter: blur(5px);
+            transform: scale(0.97) translateY(4px);
+        }
+
+        .g-hand { font-family: var(--font-script); font-size: clamp(3.5rem, 6vw, 4.5rem); color: var(--text-dark); }
+        .g-serif { font-family: var(--font-serif); font-size: clamp(4rem, 7vw, 5.5rem); font-style: italic; color: var(--royal-blue); }
+        .g-sans { font-family: var(--font-main); font-size: clamp(3.5rem, 6vw, 4.5rem); font-weight: 600; letter-spacing: -1px; color: var(--text-dark); }
+
+        .hero-desc {
+            font-size: 1.15rem; color: var(--text-gray); 
+            max-width: 800px; 
+            line-height: 1.8; margin-bottom: 50px; font-weight: 300;
+        }
+
+        .sketch-underline {
+            position: relative; color: var(--text-dark); font-weight: 400;
+            display: inline-block; white-space: nowrap;
+        }
+        .sketch-underline::after {
+            content: ''; position: absolute; left: -2%; right: -2%; bottom: -4px; height: 8px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 7 C 20 3, 80 3, 100 7" stroke="%2312237F" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>') no-repeat center/100% 100%;
+        }
+
+        .btn-minimal {
+            padding: 16px 40px; border: 1px solid var(--text-dark);
+            background: transparent; color: var(--text-dark); text-decoration: none;
+            border-radius: 100px; font-weight: 400; font-size: 1rem;
+            transition: all 0.4s var(--ease-out-expo); display: inline-block;
+        }
+        .btn-minimal:hover {
+            background: var(--text-dark); color: var(--bg-light);
+            transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* --- 4. MARQUEE BANNER --- */
+        .marquee-wrap {
+            background: var(--royal-blue); padding: 15px 0;
+            overflow: hidden; position: relative;
+            display: flex; white-space: nowrap;
+        }
+        .marquee-track {
+            display: flex; width: max-content;
+            animation: marqueeLoop 20s linear infinite;
+            font-size: 0;
+        }
+        .marquee-group {
+            display: flex; align-items: center; flex: 0 0 auto;
+        }
+        .marquee-text {
+            font-family: var(--font-main); font-weight: 300; font-size: 0.95rem;
+            color: #ffffff; padding: 0 20px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.9;
+        }
+        .marquee-bullet { color: rgba(255,255,255,0.4); padding: 0 10px; }
+        
+        @keyframes marqueeLoop {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } 
+        }
+
+        /* --- 5. INTERACTIVE SERVICES --- */
+        .services-interactive { padding: 140px 5%; max-width: 1200px; margin: 0 auto; }
+        
+        /* JERARQUÍA Y ESTILO DEL TÍTULO MEJORADO */
+        .services-header { 
+            text-align: left; 
+            margin-bottom: 60px; 
+            position: relative; 
+            padding-bottom: 25px; 
+            border-bottom: 1px solid var(--border-color); 
+            transform: translateX(-5px); 
+        }
+        .services-header h2 { font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 500; letter-spacing: -1px; }
+        
+        .services-header h2 span.italic { 
+            font-family: var(--font-serif); 
+            font-style: italic; 
+            font-weight: 400; 
+            position: relative;
+            display: inline-block;
+        }
+        /* Subrayado azul debajo de ayudarte */
+        .services-header h2 span.italic::after {
+            content: ''; 
+            position: absolute; 
+            left: 0; 
+            right: 0; 
+            bottom: -5px; 
+            height: 6px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 6 Q 50 0 100 6" stroke="%234fa3f7" stroke-width="2" fill="none"/></svg>') no-repeat center/100% 100%;
+        }
+
+        .services-header span.tag { 
+            font-size: 0.85rem; color: var(--text-gray); vertical-align: super; 
+            font-family: var(--font-main); font-weight: 400; margin-left: 10px; letter-spacing: 0; 
+        }
+
+        .services-layout { 
+            display: grid; grid-template-columns: 1fr 1.3fr; gap: 60px; align-items: center; 
+        }
+
+        .services-list { list-style: none; }
+        .services-list li {
+            padding: 30px 0; border-bottom: 1px solid var(--border-color);
+            font-size: clamp(1.5rem, 2.5vw, 2.2rem); color: var(--text-gray); cursor: pointer;
+            transition: 0.4s ease; display: flex; align-items: center;
+        }
+        .services-list li.active, .services-list li:hover { color: var(--text-dark); padding-left: 20px; font-weight: 500; }
+        .services-list li .num { font-size: 1rem; margin-right: 25px; opacity: 0.5; font-family: var(--font-nav); transition: 0.3s; }
+        .services-list li.active .num { color: var(--royal-blue); opacity: 1; }
+
+        /* CONTENEDOR VISUAL BALANCEADO */
+        .visual-container {
+            position: relative; height: 550px; perspective: 1200px;
+            transform: translateX(10px); /* Balanceado hacia el centro */
+        }
+        .folder-back {
+            position: absolute; bottom: 20px; width: 85%; height: 320px;
+            background: var(--folder-back); border-radius: 20px;
+            transform: rotate(-3deg); z-index: 1;
+        }
+        .folder-front {
+            position: absolute; bottom: 20px; width: 90%; height: 280px;
+            background: var(--royal-blue-light); border-radius: 15px;
+            z-index: 20; transform-origin: bottom; transform: rotate(-3deg) rotateX(12deg);
+            box-shadow: 0 -15px 40px rgba(18, 35, 127, 0.15); transition: 0.5s ease;
+        }
+
+        .collage-group {
+            position: absolute; width: 100%; height: 100%; top: 0; left: 0;
+            opacity: 0; pointer-events: none; transition: opacity 0.5s ease; z-index: 10;
+        }
+        .collage-group.active { opacity: 1; pointer-events: auto; }
+
+        /* ARREGLOS DEL SLOT PNG (Sin fondo, sin corte) */
+        .png-slot {
+            position: absolute; 
+            background: transparent; 
+            border: none; 
+            box-shadow: none; 
+            border-radius: 0;
+            transition: var(--spring-transition);
+            bottom: 20%; left: 35%; opacity: 0; 
+            transform: scale(0.4) translateY(80px);
+            display: flex; justify-content: center; align-items: center; 
+            overflow: visible; 
+        }
+        .png-slot img {
+            width: 100%;
+            height: auto;
+            object-fit: contain; 
+            border-radius: 0;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15)); 
+        }
+        .collage-group.active .png-slot { opacity: 1; }
+
+        .png-slot:hover { 
+            transform: scale(1.05) translateY(-8px) rotate(0deg) !important; 
+            z-index: 40 !important; 
+            cursor: pointer;
+        }
+
+        /* --- POSICIONES DEL COLLAGE BALANCEADAS Y +20% GRANDES --- */
+        /* Collage 01: Identidad Visual (3 Slots) */
+        #collage-01.active .s1 { width: 180px; height: 250px; transform: translate(-160px, -170px) rotate(-10deg); z-index: 12; }
+        #collage-01.active .s2 { width: 230px; height: 280px; transform: translate(0px, -220px) rotate(0deg); z-index: 14; }
+        #collage-01.active .s3 { width: 180px; height: 240px; transform: translate(160px, -170px) rotate(10deg); z-index: 13; }
+
+        /* Collage 02: Diseño Web (2 Slots) */
+        #collage-02.active .s1 { width: 250px; height: 215px; transform: translate(-100px, -200px) rotate(-8deg); z-index: 12; }
+        #collage-02.active .s2 { width: 250px; height: 215px; transform: translate(100px, -200px) rotate(8deg); z-index: 13; }
+
+        /* Collage 03: Redes Sociales (2 Slots) */
+        #collage-03.active .s1 { width: 215px; height: 240px; transform: translate(-90px, -210px) rotate(-6deg); z-index: 12; }
+        #collage-03.active .s2 { width: 215px; height: 240px; transform: translate(90px, -210px) rotate(6deg); z-index: 13; }
+
+        /* --- 6. RECENT PROJECTS --- */
+        .projects-section {
+            background: var(--royal-blue); padding: 140px 5%; color: #fff; text-align: center;
+        }
+        .projects-header h2 { font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 400; margin-bottom: 70px; font-family: var(--font-main); }
+        .projects-header h2 span { font-family: var(--font-serif); font-style: italic; position: relative; display: inline-block; }
+        
+        .projects-header h2 span::after {
+            content: ''; position: absolute; left: 0; right: 0; bottom: -5px; height: 6px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 6 Q 50 0 100 6" stroke="%234fa3f7" stroke-width="2" fill="none"/></svg>') no-repeat center/100% 100%;
+        }
+
+        .projects-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px; max-width: 1200px; margin: 0 auto;
+        }
+
+        .project-card {
+            background: rgba(255,255,255,0.03); border-radius: 24px; padding: 20px;
+            height: 520px; display: flex; flex-direction: column; justify-content: flex-end;
+            align-items: center; transition: all 0.5s ease; border: 1px solid rgba(255,255,255,0.08);
+            position: relative; overflow: hidden; cursor: pointer;
+        }
+
+        .project-cover {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 85px;
+            border-radius: 16px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .project-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .project-card:hover { transform: translateY(-12px); border-color: rgba(255,255,255,0.15); }
+        .project-card:hover .project-cover img { transform: scale(1.05); }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; padding: 12px 30px;
+            border-radius: 100px; text-decoration: none; font-size: 0.95rem; z-index: 2;
+            transition: all 0.3s ease; font-weight: 300; letter-spacing: 0.5px;
+        }
+        .project-card:hover .btn-glass { background: rgba(255, 255, 255, 0.2); transform: translateY(-3px); }
+
+        /* --- 7. FINAL CTA & FOOTER --- */
+        .cta-section {
+            padding: 120px 5%; max-width: 1200px; margin: 80px auto;
+            display: flex; justify-content: space-between; align-items: center; gap: 50px;
+            background: var(--bg-neutral); border-radius: 30px; 
+        }
+        .cta-text-content {
+            max-width: 650px;
+            text-align: left;
+        }
+        .cta-text-content h2 {
+            font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 500; line-height: 1.3; 
+            margin-bottom: 25px; letter-spacing: -1px;
+        }
+        .cta-text-content h2 span.italic { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--royal-blue); }
+        .cta-text-content p { color: var(--text-gray); font-size: 1.15rem; font-weight: 300; }
+
+        footer { 
+            text-align: center; padding: 40px; border-top: 1px solid var(--border-color); 
+            font-size: 0.85rem; background: var(--bg-light); color: var(--text-gray); 
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .services-layout, .cta-section { grid-template-columns: 1fr; flex-direction: column; text-align: center; }
+            .services-header { text-align: center; transform: none; }
+            .visual-container { transform: none; margin: 0 auto; margin-top: 40px; }
+            .cta-text-content { text-align: center; margin: 0 auto; }
+            .cta-text-content h2 br { display: none; }
+            
+            /* Mobile Nav Logic */
+            .burger-menu { display: flex; }
+            header.scrolled .nav-container { min-width: auto; width: 90%; }
+            .nav-links {
+                position: absolute; top: 100%; left: 0; right: 0; width: 100%;
+                background: var(--bg-light); flex-direction: column;
+                padding: 30px 0; gap: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+                opacity: 0; visibility: hidden; transform: translateY(-10px);
+                transition: 0.4s var(--ease-out-expo); border-radius: 20px;
+                margin-top: 15px; border: 1px solid var(--border-color);
+            }
+            .nav-links.nav-active { opacity: 1; visibility: visible; transform: translateY(0); }
+            .burger-menu.toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .burger-menu.toggle span:nth-child(2) { opacity: 0; }
+            .burger-menu.toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        }
+
+        /* Utils */
+        [data-reveal] { opacity: 0; transform: translateY(30px); transition: 1.2s var(--ease-out-expo); }
+        .revealed { opacity: 1; transform: translateY(0); }
+
+        /* --- PAGE TRANSITIONS --- */
+        body {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.65s var(--ease-out-expo), transform 0.65s var(--ease-out-expo);
+        }
+        body.page-entered {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        body.page-exiting {
+            opacity: 0;
+            transform: translateY(-12px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-blue-bar"></div>
+
+    <div id="intro-screen">
+        <div class="intro-content">
+            <span class="intro-top-text">Diseño Digital</span>
+            <h1 class="intro-title">Portafolio</h1>
+            <span class="intro-bottom-text">Jeanette Concepción</span>
+        </div>
+    </div>
+
+    <header id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-jc">jc.</a>
+            
+            <div class="burger-menu" id="burger-menu">
+                <span></span><span></span><span></span>
+            </div>
+
+            <nav class="nav-links" id="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="about.html">Sobre mí</a>
+                <a href="proyectos.html">Proyectos</a>
+                <a href="contact.html">Contactos</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <span class="hero-label">Bienvenid@</span>
+            
+            <div class="greeting-wrap">
+                <div class="greeting-words" id="greeting-box">
+                    <span class="g-hand" id="w1">Hello,</span>
+                    <span class="g-serif" id="w2">Hola,</span>
+                    <span class="g-sans" id="w3">Olá,</span>
+                </div>
+            </div>
+
+            <p class="hero-desc">
+                Mi nombre es <span class="sketch-underline">Jeanette</span>, diseñadora digital enfocada en creación de contenidos.<br><br>
+                Este <span class="sketch-underline">espacio</span> reúne una pequeña parte de mi trabajo, de lo que soy y de todo lo que sigo construyendo con dedicación y muchas ganas de seguir creciendo.
+            </p>
+            <a href="about.html" class="btn-minimal">Más sobre mí</a>
+        </section>
+
+        <div class="marquee-wrap">
+            <div class="marquee-track">
+                <div class="marquee-group">
+                    <span class="marquee-text">Branding</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">Diseño Web</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">Redes Sociales</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">Branding</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">Diseño Web</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">Redes Sociales</span><span class="marquee-bullet">•</span>
+                </div>
+                <div class="marquee-group">
+                    <span class="marquee-text">Branding</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">Diseño Web</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">Redes Sociales</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">Branding</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">Diseño Web</span><span class="marquee-bullet">•</span>
+                    <span class="marquee-text">Redes Sociales</span><span class="marquee-bullet">•</span>
+                </div>
+            </div>
+        </div>
+
+        <section class="services-interactive">
+            <div class="services-header">
+                <h2>¿En qué puedo <span class="italic">ayudarte?</span></h2>
+            </div>
+            
+            <div class="services-layout">
+                <ul class="services-list">
+                    <li class="active" data-target="collage-01"><span class="num">01</span> Identidad Visual</li>
+                    <li data-target="collage-02"><span class="num">02</span> Diseño Web (UI/UX)</li>
+                    <li data-target="collage-03"><span class="num">03</span> Redes Sociales</li>
+                </ul>
+
+                <div class="visual-container">
+                    <div class="folder-back"></div>
+                    
+                    <div class="collage-group active" id="collage-01">
+                        <div class="png-slot s1">
+                            <img src="images/collage-01/1.png" alt="Identidad Visual mockup 1">
+                        </div>
+                        <div class="png-slot s2">
+                            <img src="images/collage-01/2.png" alt="Identidad Visual mockup 2">
+                        </div>
+                        <div class="png-slot s3">
+                            <img src="images/collage-01/3.png" alt="Identidad Visual mockup 3">
+                        </div>
+                    </div>
+                    
+                    <div class="collage-group" id="collage-02">
+                        <div class="png-slot s1">
+                            <img src="images/collage-2/1.png" alt="Diseño Web mockup 1">
+                        </div>
+                        <div class="png-slot s2">
+                            <img src="images/collage-2/2.png" alt="Diseño Web mockup 2">
+                        </div>
+                    </div>
+
+                    <div class="collage-group" id="collage-03">
+                        <div class="png-slot s1">
+                            <img src="images/collage-3/1.png" alt="Redes Sociales mockup 1">
+                        </div>
+                        <div class="png-slot s2">
+                            <img src="images/collage-3/2.png" alt="Redes Sociales mockup 2">
+                        </div>
+                    </div>
+
+                    <div class="folder-front"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="projects-section" data-reveal>
+            <div class="projects-header">
+                <h2>Proyectos <span>destacados</span></h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-cover">
+                        <img src="images/destacados/1.png" alt="Proyecto destacado 1">
+                    </div>
+                    <a href="#" class="btn-glass">Ver Proyecto</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-cover">
+                        <img src="images/destacados/2.png" alt="Proyecto destacado 2">
+                    </div>
+                    <a href="#" class="btn-glass">Ver Proyecto</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-cover">
+                        <img src="images/destacados/3.png" alt="Proyecto destacado 3">
+                    </div>
+                    <a href="#" class="btn-glass">Ver Proyecto</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section" data-reveal>
+            <div class="cta-text-content">
+                <h2>
+                    <span class="line">Siempre estoy abierta</span><br>
+                    <span class="line">a nuevas <span class="italic">oportunidades</span></span>
+                    <span class="line"><br>y proyectos <span class="italic">creativos.</span></span>
+                </h2>
+            </div>
+            <a href="contact.html" class="btn-minimal" style="white-space: nowrap;">Conectemos →</a>
+        </section>
+    </main>
+
+    <footer>
+        © 2026 Jeanette Concepción Guillén – Hecho con &lt;3
+    </footer>
+
+    <script>
+        // 1. Loading Intro Screen
+        window.addEventListener('load', () => {
+            const screen = document.getElementById('intro-screen');
+            setTimeout(() => {
+                screen.style.opacity = '0';
+                setTimeout(() => screen.remove(), 1000);
+            }, 2000); 
+        });
+
+        // 2. Navbar Scroll Logic
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 60) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // 3. Mobile Burger Menu
+        const burger = document.getElementById('burger-menu');
+        const navLinks = document.getElementById('nav-links');
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            burger.classList.toggle('toggle');
+        });
+
+        // 4. Smooth Greeting Morph Animation (staggered)
+        const wordSets = [
+            ["Hello,", "Hola,", "Olá,"],
+            ["Bonjour,", "Hallo,", "Ciao,"],
+            ["こんにちは,", "Namaste,", "你好,"],
+            ["Salut,", "Hey,", "Hola,"]
+        ];
+
+        const w1 = document.getElementById('w1');
+        const w2 = document.getElementById('w2');
+        const w3 = document.getElementById('w3');
+        const greetingWords = [w1, w2, w3];
+        let currentSetIndex = 0;
+
+        const morphDuration = 800;
+        const staggerDelay = 150;
+
+        function morphToNextSet() {
+            currentSetIndex = (currentSetIndex + 1) % wordSets.length;
+            const nextWords = wordSets[currentSetIndex];
+
+            greetingWords.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('morphing');
+
+                    setTimeout(() => {
+                        el.textContent = nextWords[index];
+                        el.classList.remove('morphing');
+                    }, morphDuration * 0.55);
+                }, index * staggerDelay);
+            });
+        }
+
+        setInterval(morphToNextSet, 2500);
+
+        // 5. Interactive Services Logic
+        const listItems = document.querySelectorAll('.services-list li');
+        const collages = document.querySelectorAll('.collage-group');
+
+        listItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                // Update Menu
+                listItems.forEach(li => li.classList.remove('active'));
+                item.classList.add('active');
+
+                // Update Visuals
+                const targetId = item.getAttribute('data-target');
+                collages.forEach(collage => {
+                    if(collage.id === targetId) {
+                        collage.classList.add('active');
+                    } else {
+                        collage.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // 6. Reveal animations on scroll
+        const revealElements = document.querySelectorAll('[data-reveal]');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // 7. Page transitions
+        const PAGE_TRANSITION_MS = 650;
+
+        function isInternalNavigationLink(anchor) {
+            if (!anchor || !anchor.href) return false;
+            if (anchor.target === '_blank' || anchor.hasAttribute('download')) return false;
+            if (anchor.href.startsWith('mailto:') || anchor.href.startsWith('tel:')) return false;
+
+            try {
+                const url = new URL(anchor.href, location.href);
+                if (url.origin !== location.origin) return false;
+                if (url.pathname === location.pathname && url.hash) return false;
+                return url.pathname !== location.pathname || url.search !== location.search;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function handleLinkClickForTransition(event) {
+            const anchor = event.target.closest('a');
+            if (!anchor || !isInternalNavigationLink(anchor)) return;
+
+            event.preventDefault();
+            document.body.classList.add('page-exiting');
+
+            setTimeout(() => {
+                window.location.href = anchor.href;
+            }, PAGE_TRANSITION_MS);
+        }
+
+        document.addEventListener('click', handleLinkClickForTransition, true);
+
+        window.addEventListener('load', () => {
+            requestAnimationFrame(() => document.body.classList.add('page-entered'));
+        });
+    </script>
+</body>
+</html>
